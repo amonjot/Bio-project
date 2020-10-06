@@ -155,13 +155,16 @@ Les résultats sont visibles dans le fichier "V9-assembly.out" présent dans le 
 Ce script assemble les reads R1 et R2 et supprime les chimères. Les séquences "nonchimera-" sont placées dans le répertoire V9-testPrimer" dans dataPANAM. Le pourcentage de séquences contenant les primers est obtenu avec le scripts "6_sort-onlyPrimerV9.sh" : `bash 6_sort-onlyPrimerV9.sh`
 
 Pour cette étape, les primers suivant sont recherchés :
+
 **F : 18SV9 1389F**
+
     F :   5" TTGTACACACCGCCC "3
         *	3" AACATGTGTGGCGGG "5
         *	5" GGGCGGTGTGTACAA "3
     PS : `grep "^TTGTACACACCGCCC.*GTAGGTGAACCTGC[AG]GAAGG$" nonchimera-*OSTA_2_R1_clean.fastq.fasta | wc -l`
 
 **R : 18SV9 1510R**
+
     R :   5" CCTTC[CT]GCAGGTTCACCTAC "3
         *	3" GGAAG[GA]CGTCCAAGTGGATG "5
         *	5" GTAGGTGAACCTGC[AG]GAAGG "3
