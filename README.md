@@ -126,14 +126,14 @@ Ce script assemble les reads R1 et R2 et supprime les chimères. Les séquences 
 Pour cette étape, les primers suivant sont recherchés :
 
 **F : 18SV4 515F**
-    
+
     F :   5" GTG[CT]CAGC[AC]GCCGCGGTA "3
         *	3" CAC[GA]GTCG[TG]CGGCGCCAT "5
         *	5" TACCGCGGC[GT]GCTG[AG]CAC "3
     PS : `grep "^GTG[CT]CAGC[AC]GCCGCGGTA.*GCGAAAGCATT[CT][AG]CCAA$" nonchimera-*OSTA_2_R1_clean.fastq.fasta | wc -l`
 
 **R : 18SV4 941R**
-    
+
     R :   5" TTGG[CT][AG]AATGCTTTCGC "3
         *	3" AACC[GA][TC]TTACGAAAGCG "5
         *	5" GCGAAAGCATT[CT][AG]CCAA "3
