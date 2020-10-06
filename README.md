@@ -93,9 +93,9 @@ Afin de débuter les analyses, les reads V4 et V9 sont copier dans un répertoir
 
 PANAM utilise la nomenclature suivante : "x_y_R1_z.fastq.gz" et "x_y_R2_z.fastq(.gz)".
 
-_For example :_
-* _our reads :	"CIN_DMOSTA_2_1_HV2Y7BCX2.12BA289_clean.fastq"_
-* _are rename in : "DMOSTA_2_R1_clean.fastq"_
+_Par exemple :_
+* _les reads :	"CIN_DMOSTA_2_1_HV2Y7BCX2.12BA289_clean.fastq"_
+* _sont renommés en : "DMOSTA_2_R1_clean.fastq"_
 
 Les reads doivent alors être renommés grace au script "4_rawdata-rename.sh" : `bash 4_rawdata-rename.sh`
 
