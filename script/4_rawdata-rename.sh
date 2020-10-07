@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd ..
-for x in $(echo dataPANAM/V*)
+for x in $(echo data/V*)
 do
     for f in $(ls $x/*.fastq)
     do
