@@ -4,7 +4,7 @@
 ## DATA
 
 Les reads paired end (R1 et R2) sont placés dans un répertoire identifié par le nom de l'amplicon correspondant : "AC" par exemple.
-Ces répertoires ("AC","FO"," etc) sont placés dans le répertoire "reads".
+Ces répertoires ("AC","FO", etc) sont placés dans le répertoire "reads".
 
 	*******************************
 		Sampling nomenclature
@@ -63,41 +63,41 @@ Ces répertoires ("AC","FO"," etc) sont placés dans le répertoire "reads".
 
 Une table contenant le nom ("AC", "FO", etc), la condition (DNOG, DJAP, etc) et la région (V4 ou V9) correspondant à chaque amplicon doit être réalisée.
 
-* Le Genoscope fournie la table suivante : "data-inf.txt".
+* Le Genoscope fournit la table suivante : "data-inf.txt".
 * Le répertoire "reads" et la table "data-inf.txt" sont placés dans le répertoire "Microstore-metabarcoding".
 
 Définir le répertoire : `cd Microstore-metabarcoding/`
 
 Formater la table "data-inf.txt" au format voulu : `cd rawdata ; cat data-inf.txt | awk -F"\t" '{ print $2"_"$3"_"$5 }' | awk -F"_" '{ print $2"_"$3"_"$NF }' | cut -c1-10 | awk -F"_" '{ print $1"_"$2"_"$3"_" }' > sortV4-V9`
 
-"sortV4-V9" définis tous les échantillons de la manière suivante : "Nom_Condition_Région_" (_exemple : "AC_DJAG_V9__" )
+"sortV4-V9" définit tous les échantillons de la manière suivante : "Nom_Condition_Région_" (_exemple : "AC_DJAG_V9__" )
 
 PS : Après certaines vérifications, l'amplicon "FR" noté par le génoscope comme amplicon de la région V4 est en réalité un amplicon de la région V9 : 
 * Longueur des reads R1 : **151pb**
 * Longueur des reads R2 : **151pb**
-* Les reads ne "merge" pas avec une longueur minimum de **200 pb** et un overlap de **50 pb**.
+* Les reads ne "mergent" pas avec une longueur minimum de **200 pb** et un overlap de **50 pb**.
 
-Cette information est alors modifié manuellement dans la table "sortV4-V9" :  `sed -i 's/FR_DJAG_V4/FR_DJAG_V9/g' sortV4-V9`
+Cette information est alors modifiée manuellement dans la table "sortV4-V9" :  `sed -i 's/FR_DJAG_V4/FR_DJAG_V9/g' sortV4-V9`
 
 Finalement, le tri (V4 vs V9) est réalisé avec le script "1_sortV4-9.sh" : `cd ../script ; bash 1_sort_V4-9.sh`
 
-## 2. CONCATÉNER LES AMPLICONS RÉALISÉS À TRAVERS 2 FLOW-CELL
+## 2. CONCATÉNER LES AMPLICONS RÉALISÉS À TRAVERS DEUX FLOW CELL
 
-Certains amplicons sont représenteés par plusieurs fichier de reads R1 et plusieur fichier de reads R2 car ils ont été réalisés à travers plusieurs flow cells. Ces fichier doivent être concaténés afin de n'avoir qu'un seul fichier de reads R1 et un seul fichier de reads R2 : `bash 2_concate.sh`
+Certains amplicons sont représentés par plusieurs fichiers de reads R1 et plusieurs fichiers de reads R2 car ils ont été séquencés avec plusieurs flow cells. Ces fichier doivent être concaténés afin de n'avoir qu'un seul fichier de reads R1 et un seul fichier de reads R2 : `bash 2_concate.sh`
 
 ## 3. PRÉPARATION DU RÉPERTOIRE "dataPANAM"
 
-Afin de débuter les analyses, les reads V4 et V9 sont copier dans un répertoire "dataPANAM" situer dans le répertoire "Microstore-metabarcoding" :  `bash 3_sort.sh`
+Afin de débuter les analyses, les reads V4 et V9 sont copiés dans un répertoire "dataPANAM" créé dans le répertoire "Microstore-metabarcoding" :  `bash 3_sort.sh`
 
 ## 4. RE-IDENTIFICATION DES READS POUR PANAM
 
-PANAM utilise la nomenclature suivante : "x_y_R1_z.fastq.gz" et "x_y_R2_z.fastq(.gz)".
+PANAM utilise la nomenclature suivante : "x_y_R1_z.fastq.gz" et "x_y_R2_z.fastq(.gz)". Il est alors nécessaire de renommer les reads.
 
 _Par exemple :_
 * _les reads :	"CIN_DMOSTA_2_1_HV2Y7BCX2.12BA289_clean.fastq"_
 * _sont renommés en : "DMOSTA_2_R1_clean.fastq"_
 
-Les reads doivent alors être renommés grace au script "4_rawdata-rename.sh" : `bash 4_rawdata-rename.sh`
+Les reads sont renommés grâce au script "4_rawdata-rename.sh" : `bash 4_rawdata-rename.sh`
 
 PS : les reads seront zippés ultérieurement pour être utilisés dans PANAM.
 
@@ -105,25 +105,25 @@ PS : les reads seront zippés ultérieurement pour être utilisés dans PANAM.
 
 * **Nécessite vsearch**
 
-Avant de lancer PANAM, la présence des primers utilisés ainsi que l'assemblages des reads sont vérifiés. Selon la région (V4 ou V9), les paramètres suivants sont différents :
-* Longueur minimal de l'overlap : **-fastq_minovlen**
-* Longueur maximal des reads : **-fastq_maxmergelen**
-* Longueur minimal des reads : **-fastq_minlen**
+Avant de lancer PANAM, la présence des primers utilisés ainsi que le "merging" des reads sont vérifiés. Selon la région (V4 ou V9), les paramètres suivants sont différents :
+* Longueur minimale de l'overlap : **-fastq_minovlen**
+* Longueur maximale des reads : **-fastq_maxmergelen**
+* Longueur minimale des reads : **-fastq_minlen**
 
 ### Reads V4 
 
 Paramètres d'assemblage :
-* Max length V4 : **500pb**
-* Min length V4 : **200pb**
-* Min Overlap : **50pb**
+* Longueur maximale V4 : **500pb**
+* Longueur minimale V4 : **200pb**
+* Longueur minimale de l'overlap : **50pb**
     
 Les vérifications sont réalisées avec le script "5_testV4-findPrimer-assemblage.sh" : `nohup bash 5_testV4-findPrimer-assemblage.sh`
 
 Les résultats sont visibles dans le fichier "V4-assembly.out" présent dans le répertoire "V4-testPrimer" dans "dataPANAM" suite à la commande suivante : `mv nohup.out ../dataPANAM/V4-testPrimer/V4-assembly.out`
 
-Ce script assemble les reads R1 et R2 et supprime les chimères. Les séquences "nonchimera-" sont placées dans le répertoire V4-testPrimer" dans dataPANAM. Le pourcentage de séquences contenant les primers est obtenu avec le scripts "6_sort-onlyPrimerV4.sh" : `bash 6_sort-onlyPrimerV4.sh`
+Ce script assemble les reads R1 et R2 et supprime les chimères. Les séquences "nonchimera-" sont placées dans le répertoire "V4-testPrimer" dans "dataPANAM". Le pourcentage de séquences contenant les primers est obtenu avec le scripts "6_sort-onlyPrimerV4.sh" : `bash 6_sort-onlyPrimerV4.sh`
 
-Pour cette étape, les primers suivant sont recherchés :
+Pour cette étape, les primers suivants sont recherchés :
 
 **F : 18SV4 515F**
 
@@ -139,22 +139,22 @@ Pour cette étape, les primers suivant sont recherchés :
         *	5" GCGAAAGCATT[CT][AG]CCAA "3
     PS : `grep "^TTGG[CT][AG]AATGCTTTCGC.*TACCGCGGC[GT]GCTG[AG]CAC$" nonchimera-*OSTA_2_R1_clean.fastq.fasta | wc -l`
 
-Les statistiques sont visibles dans le fichier "V4-primer.out présent dans le répertoire "V4-testPrimer".
+Les statistiques sont visibles dans le fichier "V4-primer.out" présent dans le répertoire "V4-testPrimer".
 
 ### V9 Reads
 
 Paramètres d'assemblage :
-* Max length V9 : **300pb**
-* Min length V9 : **100pb**
-* Min Overlap : **50pb**
+* Longueur maximale V9 : **300pb**
+* Longueur minimale V9 : **100pb**
+* Longueur minimale de l'overlap : **50pb**
 
 Les vérifications sont réalisées avec le script "5_testV9-findPrimer-assemblage.sh" : `nohup bash 5_testV9-findPrimer-assemblage.sh`
 
 Les résultats sont visibles dans le fichier "V9-assembly.out" présent dans le répertoire "V9-testPrimer" dans "dataPANAM" suite à la commande suivante : `mv nohup.out ../dataPANAM/V9-testPrimer/V9-assembly.out`
 
-Ce script assemble les reads R1 et R2 et supprime les chimères. Les séquences "nonchimera-" sont placées dans le répertoire V9-testPrimer" dans dataPANAM. Le pourcentage de séquences contenant les primers est obtenu avec le scripts "6_sort-onlyPrimerV9.sh" : `bash 6_sort-onlyPrimerV9.sh`
+Ce script assemble les reads R1 et R2 et supprime les chimères. Les séquences "nonchimera-" sont placées dans le répertoire "V9-testPrimer" dans "dataPANAM". Le pourcentage de séquences contenant les primers est obtenu avec le scripts "6_sort-onlyPrimerV9.sh" : `bash 6_sort-onlyPrimerV9.sh`
 
-Pour cette étape, les primers suivant sont recherchés :
+Pour cette étape, les primers suivants sont recherchés :
 
 **F : 18SV9 1389F**
 
@@ -170,7 +170,7 @@ Pour cette étape, les primers suivant sont recherchés :
         *	5" GTAGGTGAACCTGC[AG]GAAGG "3
     PS : `grep "^CCTTC[CT]GCAGGTTCACCTAC.*GGGCGGTGTGTACAA$" nonchimera-*OSTA_2_R1_clean.fastq.fasta | wc -l`
 
-Les statistiques sont visibles dans le fichier "V9-primer.out présent dans le répertoire "V9-testPrimer".
+Les statistiques sont visibles dans le fichier "V9-primer.out" présent dans le répertoire "V9-testPrimer".
 
 ## 6. INSTALLATION ET INITIALISATION DE PANAM 
 
@@ -188,7 +188,7 @@ Installation de PANAM dans le répertoire "dataPANAM"  :
 
 Les reads V4 et V9 sont déplacés dans le répertoire PANAM2 : `cd .. ; mv V4 PANAM2/V4 ; gzip PANAM2/V4/*.fastq ; mv V9 PANAM2/V9 ; gzip PANAM2/V9/*.fastq`
 
-Différent fichier d'initialisation ".ini" sont créés (à partir du fichier "test2-panam2.ini" présent dans PANAM2) :
+Différent fichiers d'initialisation ".ini" sont créés (à partir du fichier "test2-panam2.ini" présent dans PANAM2) :
 	
     * V4-panam2-095.ini (√)
 		Parameters :
@@ -252,7 +252,7 @@ Différent fichier d'initialisation ".ini" sont créés (à partir du fichier "t
 
 Ces fichier d'initialisation ".ini" sont placés dans le répertoire "PANAM2"
 
-## 7. PANAM ANALYSES
+## 7. ANALYSES PANAM 
 
 Pour lancer PANAM2 : `cd PANAM2`
 
@@ -263,3 +263,17 @@ Pour lancer PANAM2 : `cd PANAM2`
 * V9 avec seuil de clusterisation = 0.95 : `nohup perl panam2.pl -ini V9-panam2-095.ini > V9-095.out`
 
 * V9 avec seuil de clusterisation = 0.97 : `nohup perl panam2.pl -ini V9-panam2-097.ini > V9-097.out`
+
+## 8. ANALYSES R
+
+* **Nécessite R version 3.6.3**
+
+Un environnement conda est alors créé afin d'installer R 3.6.3 : `cd ../../script ; conda create -y -n REnv -c conda-forge r-base=3.6.3 ; conda activate REnv`
+
+Un script permet d'installer les dépendences nécessaires aux analyses : `Rscript Install_dependencies.R`
+
+Une première analyse est réalisée afin de tester la différence entre amplicons d'un même duplicat : `Rscript Auto-analyse_AFC_OTUonly.R`
+
+L'analyse est réalisée avec un second script : `Rscript Script-Composition-OTU-Rarefy.R`
+
+Les résultats de l'analyse se trouvent dans le répertoire "Analyse-Composition-Rarefy"
