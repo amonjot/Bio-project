@@ -87,7 +87,7 @@ Certains amplicons sont représentés par plusieurs fichiers de reads R1 et plus
 
 ## 3. PRÉPARATION DU RÉPERTOIRE "dataPANAM"
 
-Afin de débuter les analyses, les reads V4 et V9 sont copiés dans un répertoire "dataPANAM" créé dans le répertoire "Microstore-metabarcoding" :  `bash 3_sort.sh`
+Afin de débuter les analyses, les reads V4 et V9 sont copiés dans un répertoire "dataPANAM" :  `bash 3_sort.sh`
 
 ## 4. RE-IDENTIFICATION DES READS POUR PANAM
 
@@ -264,7 +264,7 @@ Pour lancer PANAM2 : `cd PANAM2`
 
 * V9 avec seuil de clusterisation = 0.97 : `nohup perl panam2.pl -ini V9-panam2-097.ini > V9-097.out`
 
-## 8. ANALYSES R
+## 8. ANALYSES R (Utilisé ici sur les données V4-095 (seuil de clusterisation fixé à 0.95%))
 
 * **Nécessite R version 3.6.3**
 
@@ -274,6 +274,6 @@ Un script permet d'installer les dépendences nécessaires aux analyses : `Rscri
 
 Une première analyse est réalisée afin de tester la différence entre amplicons d'un même duplicat : `Rscript Auto-analyse_AFC_OTUonly.R`
 
-L'analyse est réalisée avec un second script : `Rscript Script-Composition-OTU-Rarefy.R`
+L'analyse de composition et d'abondance sont réalisées avec un second script : `Rscript Script-Composition-OTU-Rarefy.R`
 
 Les résultats de l'analyse se trouvent dans le répertoire "Analyse-Composition-Rarefy"
