@@ -59,7 +59,7 @@ Ces répertoires ("AC","FO", etc) sont placés dans le répertoire "reads".
 	6. y coordinate on the tile : 1262
 
 
-## 1. TRIE DES AMPLICONS V4 ET V9
+## 1. TRI DES AMPLICONS V4 ET V9
 
 Une table contenant le nom ("AC", "FO", etc), la condition (DNOG, DJAP, etc) et la région (V4 ou V9) correspondant à chaque amplicon doit être réalisée.
 
@@ -81,9 +81,9 @@ Cette information est alors modifiée manuellement dans la table "sortV4-V9" :  
 
 Finalement, le tri (V4 vs V9) est réalisé avec le script "1_sortV4-9.sh" : `cd ../script ; bash 1_sort_V4-9.sh`
 
-## 2. CONCATÉNER LES AMPLICONS RÉALISÉS À TRAVERS DEUX FLOW CELL
+## 2. CONCATÉNER LES AMPLICONS RÉALISÉS À TRAVERS DEUX FLOW CELLS
 
-Certains amplicons sont représentés par plusieurs fichiers de reads R1 et plusieurs fichiers de reads R2 car ils ont été séquencés avec plusieurs flow cells. Ces fichier doivent être concaténés afin de n'avoir qu'un seul fichier de reads R1 et un seul fichier de reads R2 : `bash 2_concate.sh`
+Certains amplicons sont représentés par plusieurs fichiers de reads R1 et plusieurs fichiers de reads R2 car ils ont été séquencés avec plusieurs flow cells. Ces fichiers doivent être concaténés afin de n'avoir qu'un seul fichier de reads R1 et un seul fichier de reads R2 : `bash 2_concate.sh`
 
 ## 3. PRÉPARATION DU RÉPERTOIRE "dataPANAM"
 
@@ -121,7 +121,7 @@ Les vérifications sont réalisées avec le script "5_testV4-findPrimer-assembla
 
 Les résultats sont visibles dans le fichier "V4-assembly.out" présent dans le répertoire "V4-testPrimer" dans "dataPANAM" suite à la commande suivante : `mv nohup.out ../dataPANAM/V4-testPrimer/V4-assembly.out`
 
-Ce script assemble les reads R1 et R2 et supprime les chimères. Les séquences "nonchimera-" sont placées dans le répertoire "V4-testPrimer" dans "dataPANAM". Le pourcentage de séquences contenant les primers est obtenu avec le scripts "6_sort-onlyPrimerV4.sh" : `bash 6_sort-onlyPrimerV4.sh`
+Ce script assemble les reads R1 et R2 et supprime les chimères. Les séquences "nonchimera-" sont placées dans le répertoire "V4-testPrimer" dans "dataPANAM". Le pourcentage de séquences contenant les primers est obtenu avec le script "6_sort-onlyPrimerV4.sh" : `bash 6_sort-onlyPrimerV4.sh`
 
 Pour cette étape, les primers suivants sont recherchés :
 
@@ -152,7 +152,7 @@ Les vérifications sont réalisées avec le script "5_testV9-findPrimer-assembla
 
 Les résultats sont visibles dans le fichier "V9-assembly.out" présent dans le répertoire "V9-testPrimer" dans "dataPANAM" suite à la commande suivante : `mv nohup.out ../dataPANAM/V9-testPrimer/V9-assembly.out`
 
-Ce script assemble les reads R1 et R2 et supprime les chimères. Les séquences "nonchimera-" sont placées dans le répertoire "V9-testPrimer" dans "dataPANAM". Le pourcentage de séquences contenant les primers est obtenu avec le scripts "6_sort-onlyPrimerV9.sh" : `bash 6_sort-onlyPrimerV9.sh`
+Ce script assemble les reads R1 et R2 et supprime les chimères. Les séquences "nonchimera-" sont placées dans le répertoire "V9-testPrimer" dans "dataPANAM". Le pourcentage de séquences contenant les primers est obtenu avec le script "6_sort-onlyPrimerV9.sh" : `bash 6_sort-onlyPrimerV9.sh`
 
 Pour cette étape, les primers suivants sont recherchés :
 
@@ -188,7 +188,7 @@ Installation de PANAM dans le répertoire "dataPANAM"  :
 
 Les reads V4 et V9 sont déplacés dans le répertoire PANAM2 : `cd .. ; mv V4 PANAM2/V4 ; gzip PANAM2/V4/*.fastq ; mv V9 PANAM2/V9 ; gzip PANAM2/V9/*.fastq`
 
-Différent fichiers d'initialisation ".ini" sont créés (à partir du fichier "test2-panam2.ini" présent dans PANAM2) :
+Différents fichiers d'initialisation ".ini" sont créés (à partir du fichier "test2-panam2.ini" présent dans PANAM2) :
 	
     * V4-panam2-095.ini (√)
 		Parameters :
@@ -250,7 +250,7 @@ Différent fichiers d'initialisation ".ini" sont créés (à partir du fichier "
 		* SCORE_FIX	0.90
 		* MERGE_SEQ	perfect_match
 
-Ces fichier d'initialisation ".ini" sont placés dans le répertoire "PANAM2"
+Ces fichiers d'initialisation ".ini" sont placés dans le répertoire "PANAM2"
 
 ## 7. ANALYSES PANAM 
 
