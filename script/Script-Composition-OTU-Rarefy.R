@@ -69,7 +69,7 @@ theme_unique_darkbis <- function (base_size = 12, base_family = "") {
 # Set directory and import package -----------------------------------------------------------
 setwd("..")
 
-pkg <- c("ggplot2", "readxl","dplyr","tidyr","cowplot","FactoMineR","factoextra","reshape2","varhandle","gplots","ggrepel","ggpubr","ggsci","scales","hrbrthemes","GUniFrac","svglite")
+pkg <- c("ggplot2", "readxl","dplyr","tidyr","cowplot","FactoMineR","factoextra","reshape2","varhandle","ggrepel","ggpubr","ggsci","scales","hrbrthemes","GUniFrac","svglite")
 lapply(pkg, require, character.only = TRUE)
 
 palette <- c(pal_locuszoom(alpha = 0.8)(7), pal_lancet(alpha = 0.8)(7))
@@ -2716,6 +2716,50 @@ dev.off()
      nrow(totaltaxosupergroup %>% filter(Order == "environvironmental samples"))
      nrow(totaltaxosupergroup %>% filter(Order == "unclassified Thraustochytriidae"))
 
+     
+     
+     
+
+# AFC FractionO avec Dates ------------------------------------------------
+     #Figure FractionO
+     dataSequenceTaxox <- dataSequenceTaxo
+     #Avril
+     for (i in row.names(dataSequenceTaxox)) { 
+       if (dataSequenceTaxox[i,"FractionO"] != "Communs"){ 
+         if (dataSequenceTaxox[i,"Total04"] == 1) { (dataSequenceTaxox[i,"Total04"] <- "Avril")}
+         if (dataSequenceTaxox[i,"Total06"] == 1) { (dataSequenceTaxox[i,"Total06"] <- "Juin")}
+         if (dataSequenceTaxox[i,"Total09"] == 1) { (dataSequenceTaxox[i,"Total09"] <- "Septembre")}
+         if (dataSequenceTaxox[i,"Total11"] == 1) { (dataSequenceTaxox[i,"Total11"] <- "Novembre")}}}
+     for (i in row.names(dataSequenceTaxox)) { if (dataSequenceTaxox[i,"Total04"] != "Avril") { dataSequenceTaxox[i,"Total04"] <- "No"}}
+     for (i in row.names(dataSequenceTaxox)) { if (dataSequenceTaxox[i,"Total06"] != "Juin") { dataSequenceTaxox[i,"Total06"] <- "No"}}
+     for (i in row.names(dataSequenceTaxox)) { if (dataSequenceTaxox[i,"Total09"] != "Septembre") { dataSequenceTaxox[i,"Total09"] <- "No"}}
+     for (i in row.names(dataSequenceTaxox)) { if (dataSequenceTaxox[i,"Total11"] != "Novembre") { dataSequenceTaxox[i,"Total11"] <- "No"}}
+     
+     #Print plot
+     bs <- ggplot(dataSequenceTaxox, aes(y = `Dim 2`, x = `Dim 1`, color = FractionO)) + geom_point(size = 2) + #geom_text(aes(label=sample), size = 3, hjust=1.2, vjust=1) +
+       geom_hline(yintercept=0, linetype=2, color = "black", size=0.2) +
+       geom_vline(xintercept=0, linetype=2, color = "black", size=0.2) +
+       #facet_grid(~`Dates`, switch = "x") + theme_bw() +
+       #stat_ellipse(aes(group = Cycles),geom = "polygon",type = "norm", linetype = 2, alpha = 0.1, color = "red") +
+       #stat_ellipse(aes(linetype = FractionO, alpha = FractionO),geom = "polygon",type = "norm") +
+       stat_ellipse(aes(linetype = Total04,color = Total04, alpha = Total04),geom = "polygon",type = "norm") +
+       stat_ellipse(aes(linetype = Total06,color = Total06, alpha = Total06),geom = "polygon",type = "norm") +
+       stat_ellipse(aes(linetype = Total09,color = Total09, alpha = Total09),geom = "polygon",type = "norm") +
+       stat_ellipse(aes(linetype = Total11,color = Total11, alpha = Total11),geom = "polygon",type = "norm") +
+       scale_linetype_manual(values = c(2,2,0,2,2)) +
+       #stat_ellipse(geom = "polygon",type = "norm", linetype = 2, alpha = 0.1) +
+       #stat_ellipse(aes(group = `Fraction-Oxygène`),geom = "polygon",type = "norm", linetype = 2, alpha = 0.1, color = "grey") +
+       #geom_label_repel(aes(label = Cycles), color = 'white',size = 2.5, segment.size = 0.3,segment.color = "black", alpha = 0.8) +
+       theme(axis.title = element_text(face="bold", size=12), 
+             axis.text.x = element_text(angle=0, size=10, hjust = 1, vjust=0.5), 
+             title = element_text(face="bold", size=14),
+             legend.title = element_text(face="bold"),
+             legend.position = "right",
+             legend.text = element_text(size=10)) +
+       scale_alpha_manual(values = c(0.1,0.1,0,0.1,0.1)) +
+       scale_color_manual(values = c("#F8766D","#00A5FF","lightgrey","lightgreen","black","red","blue","green")) +
+       labs(x=Dim1Seq,y=Dim2Seq,color = "Dates", alpha = "Dates", linetype = "Dates", shape = "Zones")
+     print(bs)
      
      
      

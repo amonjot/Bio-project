@@ -71,7 +71,7 @@ setwd("..")
 #if (!require("pacman")) {install.packages("pacman", repos="http://cran.rstudio.com/")}
 #pacman::p_load("ggplot2", "readxl","dplyr","tidyr","cowplot","FactoMineR","factoextra","reshape2","varhandle","gplots","ggrepel","ggpubr","ggsci","scales","hrbrthemes","GUniFrac","svglite")
 
-pkg <- c("ggplot2", "readxl","dplyr","tidyr","cowplot","FactoMineR","factoextra","reshape2","varhandle","gplots","ggrepel","ggpubr","ggsci","scales","hrbrthemes","GUniFrac","svglite")
+pkg <- c("ggplot2", "readxl","dplyr","tidyr","cowplot","FactoMineR","factoextra","reshape2","varhandle","ggrepel","ggpubr","ggsci","scales","hrbrthemes","GUniFrac","svglite")
 lapply(pkg, require, character.only = TRUE)
 
 system("mkdir Analyse-Composition-Rarefy")
