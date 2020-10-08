@@ -1,10 +1,16 @@
-#!/bin/sh
+#                                 _       _
+#     /\                         (_)     | |
+#    /  \   _ __ ___   ___  _ __  _  ___ | |_
+#   / /\ \ | '_ ` _ \ / _ \| '_ \| |/ _ \| __|
+#  / ____ \| | | | | | (_) | | | | | (_) | |_
+# /_/    \_\_| |_| |_|\___/|_| |_| |\___/ \__|
+#                               _/ |
+#                              |__/
+# 27/02/2020
+#
+#!/bin/bash
 
-#  sort-onlyPrimer.sh
-#  
-#
-#  Created by Arthur Monjot on 27/02/2020.
-#
+## Sort primers
 cd ../dataPANAM
 for f in $(ls V9-testPrimer/nonchimera-*.fastq.fasta)
 do

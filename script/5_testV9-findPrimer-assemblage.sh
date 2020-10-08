@@ -1,12 +1,16 @@
+#                                 _       _
+#     /\                         (_)     | |
+#    /  \   _ __ ___   ___  _ __  _  ___ | |_
+#   / /\ \ | '_ ` _ \ / _ \| '_ \| |/ _ \| __|
+#  / ____ \| | | | | | (_) | | | | | (_) | |_
+# /_/    \_\_| |_| |_|\___/|_| |_| |\___/ \__|
+#                               _/ |
+#                              |__/
+# 24/01/2020
+#
 #!/bin/bash
 
-#  Script.sh
-#
-#
-#  Created by Arthur Monjot on 24/01/2020.
-#
-
-# Boucle for
+## Boucle for
 cd ..
 cp -r dataPANAM/V9 dataPANAM/V9-testPrimer
 

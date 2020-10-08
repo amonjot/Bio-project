@@ -1,6 +1,16 @@
+#                                 _       _
+#     /\                         (_)     | |
+#    /  \   _ __ ___   ___  _ __  _  ___ | |_
+#   / /\ \ | '_ ` _ \ / _ \| '_ \| |/ _ \| __|
+#  / ____ \| | | | | | (_) | | | | | (_) | |_
+# /_/    \_\_| |_| |_|\___/|_| |_| |\___/ \__|
+#                               _/ |
+#                              |__/
+# 24/01/2020
+#
 #!/bin/bash
 
-#Sort & Compress
+## Sort & Compress
 cd ../rawdata/reads
 mkdir ../V9/
 mkdir ../V4/
@@ -15,7 +25,7 @@ do
 	mv $i.tar ../V4/
 	fi
 done
-#Decompress
+##Decompress
 cd ../V9/
 for g in $(ls)
 do
@@ -26,5 +36,3 @@ for h in $(ls)
 do
     tar -xvf ../V4/$h ; rm $h
 done
-
-

@@ -1,4 +1,15 @@
+#                                 _       _
+#     /\                         (_)     | |
+#    /  \   _ __ ___   ___  _ __  _  ___ | |_
+#   / /\ \ | '_ ` _ \ / _ \| '_ \| |/ _ \| __|
+#  / ____ \| | | | | | (_) | | | | | (_) | |_
+# /_/    \_\_| |_| |_|\___/|_| |_| |\___/ \__|
+#                               _/ |
+#                              |__/
+# XX/XX/XXXX
+#
 # Script Composition
+
 # Theme unique Dark perso -------------------------------------------------------
 theme_unique_dark <- function (base_size = 12, base_family = "") {
   ret <- (theme_bw(base_size = base_size, base_family = base_family) +

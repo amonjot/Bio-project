@@ -1,10 +1,16 @@
+#                                 _       _
+#     /\                         (_)     | |
+#    /  \   _ __ ___   ___  _ __  _  ___ | |_
+#   / /\ \ | '_ ` _ \ / _ \| '_ \| |/ _ \| __|
+#  / ____ \| | | | | | (_) | | | | | (_) | |_
+# /_/    \_\_| |_| |_|\___/|_| |_| |\___/ \__|
+#                               _/ |
+#                              |__/
+# 26/02/2020
+#
 #!/bin/sh
 
-#  sort.sh
-#  
-#
-#  Created by Arthur Monjot on 26/02/2020.
-#  
+## Create dataPANAM directory and sort reads
 cd ..
 mkdir dataPANAM
 mkdir dataPANAM/V4
